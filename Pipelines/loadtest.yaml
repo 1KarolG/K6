@@ -1,0 +1,16 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+parameters:
+- name: host
+  displayName: host
+  default: test-api.k6.io
+- name: authorization
+  displayName: authorization
+  default: 'dGVzdFVzcjI6dGVzdFVzcjI='  
+
+steps:
+  - task: k6-load-test@0
+    inputs:
+      args: -e host=${{ parameters.host }} -e authorization=${{ parameters.authorization }}
+      filename: '/Scenarios/CrocodileThreshold.js'
